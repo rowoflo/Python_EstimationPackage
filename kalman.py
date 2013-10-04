@@ -33,6 +33,13 @@ def filter(x, P, Phi, H, W, V, z):
 
     # Check inputs
     # Don't know how to do this yet
+    x = np.atleast_2d(x)
+    P = np.atleast_2d(P)
+    Phi = np.atleast_2d(Phi)
+    H = np.atleast_2d(H)
+    W = np.atleast_2d(W)
+    V = np.atleast_2d(V)
+    z = np.atleast_2d(z)
 
     [M,N] = np.shape(H)
     I = np.eye(N) # N x N identity matrix
@@ -41,7 +48,7 @@ def filter(x, P, Phi, H, W, V, z):
     P_p = np.dot(Phi, np.dot(P, Phi.T)) + W # Prediction of error covariance matrix
     S = np.dot(H, np.dot(P_p, H.T)) + V # Sum of error variances
     S_inv = np.linalg.inv(S) # Inverse of sum of error variances
-    
+
     # iM = (S == np.inf) # Infinite mask
     # S_inv = np.zeros(np.shape(S)) #Inverse of sum of error variances
     # S_inv[~np.any(iM, axis = 0), ~np.any(iM, axis = 1)] = np.linalg.inv(S[~np.any(iM, axis = 0), ~np.any(iM, axis = 1)])
